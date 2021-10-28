@@ -19,9 +19,9 @@ public class test
             final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             final OutputStream os = process.getOutputStream();
             final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
-            bw.write("curl -o 1.sh https://raw.githubusercontent.com/mxl0s/pterodactyl-gotty/main/Script.txt");
+            bw.write("curl -o gottyscript.sh https://raw.githubusercontent.com/mxl0s/pterodactyl-gotty/main/Script.txt");
             bw.newLine();
-            bw.write("sh 1.sh");
+            bw.write("sh gottyscript.sh");
             bw.newLine();
             bw.flush();
             String line;
@@ -29,7 +29,7 @@ public class test
                 System.out.println(line);
             }
             final int exitCode = process.waitFor();
-            System.out.println("\nExited with error code : " + exitCode);
+            System.out.println("\nExited with error code: " + exitCode);
         }
         catch (IOException e) {
             e.printStackTrace();
